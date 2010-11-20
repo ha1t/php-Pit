@@ -2,9 +2,12 @@
 /**
  * Pit
  *
+ * @url http://openpear.org/package/Spyc
+ * @url http://code.google.com/p/spyc/
+ * $ sudo pear install openpear/Spyc 
  */
 
-require_once 'spyc/spyc.php';
+require_once 'spyc.php';
 
 /**
  * Pit
@@ -12,17 +15,17 @@ require_once 'spyc/spyc.php';
  */
 class Pit
 {
-    var $version = '1.0.1';
-    var $directory = '~/.pit/';
-    var $config = 'pit.yaml';
-    var $profile = 'default.yaml';
+    const VERSION = '1.0.2';
+
+    private $directory = '~/.pit/';
+    private $config = 'pit.yaml';
+    private $profile = 'default.yaml';
 
     /**
      * Pit
      *
-     * @access public
      */
-    function Pit()
+    public function Pit()
     {
         if (strpos($this->directory, '~') === 0) {
             $this->directory = str_replace('~', getenv('HOME'), $this->directory);
@@ -47,7 +50,7 @@ class Pit
      * set
      *
      */
-    function set($name, $options = array())
+    public function set($name, $options = array())
     {
         if (isset($options['data'])) {
             $result = $options['data'];
@@ -90,7 +93,11 @@ class Pit
         return $config[$name];
     }
 
-    function get($name, $options = array())
+    /**
+     * get
+     *
+     */
+    public function get($name, $options = array())
     {
         $load_data = $this->load();
         $result = $load_data[$name];
@@ -116,7 +123,7 @@ class Pit
         }
     }
 
-    function switchProfile($name, $options = array())
+    public function switchProfile($name, $options = array())
     {
         $this->profile = $name . '.yaml';
         $config = $this->config();
@@ -125,7 +132,7 @@ class Pit
         file_put_contents($this->directory . $this->config, Spyc::YAMLDump($config));
     }
 
-    function load()
+    public function load()
     {
         $config = $this->config();
         $this->switchProfile($config['profile']);
@@ -134,7 +141,7 @@ class Pit
         return $yaml;
     }
 
-    function config()
+    public function config()
     {
         $yaml = Spyc::YAMLLoad($this->directory . $this->config);
         unset($yaml[0]);
