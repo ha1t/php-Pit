@@ -7,6 +7,11 @@
  * $ sudo pear install openpear/Spyc 
  */
 
+use Symfony\Component\Yaml\Yaml;
+
+//$array = Yaml::parse($file);
+//print Yaml::dump($array);
+
 require_once 'spyc.php';
 
 /**
