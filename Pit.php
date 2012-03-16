@@ -4,6 +4,7 @@
  *
  * @url http://openpear.org/package/Spyc
  * @url http://code.google.com/p/spyc/
+ *
  * $ sudo pear install openpear/Spyc 
  */
 
@@ -14,14 +15,8 @@ use Symfony\Component\Yaml\Yaml;
 
 require_once 'spyc.php';
 
-/**
- * Pit
- *
- */
 class Pit
 {
-    const VERSION = '1.0.2';
-
     private $directory = '~/.pit/';
     private $config = 'pit.yaml';
     private $profile = 'default.yaml';
@@ -83,7 +78,6 @@ class Pit
                 //No Changes
             }
 
-            //yaml 2 array
             $result = Spyc::YAMLLoad($tfilename);
             unset($result[0]);
             unlink($tfilename);
@@ -105,10 +99,10 @@ class Pit
     public function get($name, $options = array())
     {
         $load_data = $this->load();
-        $result = $load_data[$name];
 
-        if (!is_array($result)) {
-            $result = array();
+        $result = array(); 
+        if (isset($load_data[$name])) {
+            $result = $load_data[$name];
         }
 
         if ((count($result) == 0) && isset($options['require'])) {
