@@ -1,0 +1,3 @@
+[submodule "vendor/Symfony/Component/Yaml"]
+	path = vendor/Symfony/Component/Yaml
+	url = https://github.com/symfony/Yaml
