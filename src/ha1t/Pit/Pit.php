@@ -4,7 +4,7 @@
  *
  * @url http://openpear.org/package/Spyc
  * @url http://code.google.com/p/spyc/
- * $ sudo pear install openpear/Spyc 
+ * $ sudo pear install openpear/Spyc
  */
 
 namespace ha1t\Pit;
@@ -25,7 +25,7 @@ class Pit
      * Pit
      *
      */
-    public function Pit()
+    public function __construct()
     {
         if (strpos($this->directory, '~') === 0) {
             $this->directory = str_replace('~', getenv('HOME'), $this->directory);
@@ -34,12 +34,12 @@ class Pit
         if (!is_dir($this->directory)) {
             mkdir($this->directory);
         }
-        
+
         if (!is_file($this->directory . $this->config)) {
             touch($this->directory . $this->config);
             chmod($this->directory . $this->config, 0600);
         }
-        
+
         if (!is_file($this->directory . $this->profile)) {
             touch($this->directory . $this->profile);
             chmod($this->directory . $this->profile, 0600);
