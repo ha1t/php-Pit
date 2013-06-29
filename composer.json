@@ -1,0 +1,12 @@
+{
+    "name": "ha1t/config-pit",
+    "require": {
+        "symfony/yaml": "v2.3.1"
+    },
+    "authors": [
+        {
+            "name": "okonomi",
+            "email": "oknm@okonomi.sakura.ne.jp"
+        }
+    ]
+}
