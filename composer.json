@@ -1,5 +1,5 @@
 {
-    "name": "ha1t/config-pit",
+    "name": "pit/pit",
     "require": {
         "symfony/yaml": "v2.3.1"
     },

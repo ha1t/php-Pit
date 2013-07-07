@@ -1,11 +1,11 @@
 <?php
 
-namespace ha1t\Pit;
+namespace Pit;
 
 class PitTest extends \PHPUnit_Framework_TestCase
 {
     public function testInstanciate()
     {
-        $this->assertInstanceOf('ha1t\\Pit\\Pit', new Pit());
+        $this->assertInstanceOf('Pit\\Pit', new Pit());
     }
 }

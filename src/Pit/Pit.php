@@ -7,7 +7,7 @@
  * $ sudo pear install openpear/Spyc
  */
 
-namespace ha1t\Pit;
+namespace Pit;
 
 /**
  * Pit
