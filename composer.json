@@ -1,11 +1,11 @@
 {
     "name": "pit/pit",
     "require": {
-        "symfony/yaml": "v2.3.1"
+        "symfony/yaml": "2.3.*"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*",
-        "mikey179/vfsStream": "v1.2.0"
+        "mikey179/vfsStream": "1.2.*"
     },
     "authors": [
         {
