@@ -90,7 +90,7 @@ class Pit
         $config = $this->load();
         $config[$name] = $result;
 
-        file_put_contents($this->directory . $this->profile, Spyc::YAMLDump($config));
+        file_put_contents($this->directory . $this->profile, Yaml::dump($config));
 
         return $config[$name];
     }

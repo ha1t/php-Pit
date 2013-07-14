@@ -30,4 +30,14 @@ class PitTest extends \PHPUnit_Framework_TestCase
         $pit->switchProfile('test');
         $pit->switchProfile('default');
     }
+
+    public function testGet()
+    {
+        $pit = new Pit();
+        $pit->switchProfile('test');
+
+        $config = $pit->get('example.com');
+
+        $pit->switchProfile('default');
+    }
 }
