@@ -23,4 +23,11 @@ class PitTest extends \PHPUnit_Framework_TestCase
         $profile = $pit->load();
         $this->assertInternalType('array', $profile);
     }
+
+    public function testSwitchProfile()
+    {
+        $pit = new Pit();
+        $pit->switchProfile('test');
+        $pit->switchProfile('default');
+    }
 }
