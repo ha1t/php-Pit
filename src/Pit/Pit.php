@@ -2,9 +2,6 @@
 /**
  * Pit
  *
- * @url http://openpear.org/package/Spyc
- * @url http://code.google.com/p/spyc/
- * $ sudo pear install openpear/Spyc
  */
 
 namespace Pit;
@@ -24,8 +21,7 @@ class Pit
     private $profile = 'default.yaml';
 
     /**
-     * Pit
-     *
+     * constructor
      */
     public function __construct()
     {
@@ -49,8 +45,10 @@ class Pit
     }
 
     /**
-     * set
-     *
+     * 設定を保存
+     * @param string $name
+     * @param array $options
+     * @return mixed
      */
     public function set($name, $options = array())
     {
@@ -96,8 +94,10 @@ class Pit
     }
 
     /**
-     * get
-     *
+     * 取得
+     * @param string $name
+     * @param array $options
+     * @return array
      */
     public function get($name, $options = array())
     {
@@ -125,6 +125,11 @@ class Pit
         }
     }
 
+    /**
+     * switch profile
+     * @param string $name
+     * @param array $options
+     */
     public function switchProfile($name, $options = array())
     {
         $this->profile = $name . '.yaml';
@@ -134,6 +139,10 @@ class Pit
         file_put_contents($this->directory . $this->config, Yaml::dump($config));
     }
 
+    /**
+     * get current profile data
+     * @return array
+     */
     public function load()
     {
         $config = $this->config();
@@ -141,21 +150,12 @@ class Pit
         return Yaml::parse($this->directory . $this->profile);
     }
 
+    /**
+     * get config
+     * @return array
+     */
     public function config()
     {
         return Yaml::parse($this->directory . $this->config);
     }
-
 }
-
-/*
-$pit = new Pit();
-$re = $pit->get('none', array('require' =>
-    array(
-        'mail' => 'your mail',
-        'pass' => 'your pass'
-    )
-));
-var_dump($re);
- */
-?>
