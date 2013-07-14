@@ -34,11 +34,8 @@ class PitTest extends \PHPUnit_Framework_TestCase
     public function testGet()
     {
         $pit = new Pit();
-        $pit->switchProfile('test');
 
         $config = $pit->get('example.com');
         $this->assertInternalType('array', $config);
-
-        $pit->switchProfile('default');
     }
 }
