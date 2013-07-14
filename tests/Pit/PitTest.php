@@ -16,4 +16,11 @@ class PitTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $config);
         $this->assertArrayHasKey('profile', $config);
     }
+
+    public function testLoad()
+    {
+        $pit = new Pit();
+        $profile = $pit->load();
+        $this->assertInternalType('array', $profile);
+    }
 }

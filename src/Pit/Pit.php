@@ -131,16 +131,14 @@ class Pit
         $config = $this->config();
         $config['profile'] = $name;
 
-        file_put_contents($this->directory . $this->config, Spyc::YAMLDump($config));
+        file_put_contents($this->directory . $this->config, Yaml::dump($config));
     }
 
     public function load()
     {
         $config = $this->config();
         $this->switchProfile($config['profile']);
-        $yaml = Spyc::YAMLLoad($this->directory . $this->profile);
-        unset($yaml[0]);
-        return $yaml;
+        return Yaml::parse($this->directory . $this->profile);
     }
 
     public function config()
