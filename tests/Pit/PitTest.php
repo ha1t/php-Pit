@@ -37,6 +37,7 @@ class PitTest extends \PHPUnit_Framework_TestCase
         $pit->switchProfile('test');
 
         $config = $pit->get('example.com');
+        $this->assertInternalType('array', $config);
 
         $pit->switchProfile('default');
     }
