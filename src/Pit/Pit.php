@@ -9,6 +9,8 @@
 
 namespace Pit;
 
+use Symfony\Component\Yaml\Yaml;
+
 /**
  * Pit
  *
@@ -143,9 +145,7 @@ class Pit
 
     public function config()
     {
-        $yaml = Spyc::YAMLLoad($this->directory . $this->config);
-        unset($yaml[0]);
-        return $yaml;
+        return Yaml::parse($this->directory . $this->config);
     }
 
 }
