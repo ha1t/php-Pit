@@ -2,12 +2,11 @@
 /**
  * Pit
  *
- * @url http://openpear.org/package/Spyc
- * @url http://code.google.com/p/spyc/
- * $ sudo pear install openpear/Spyc 
  */
 
-require_once 'spyc.php';
+namespace Pit;
+
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Pit
@@ -22,10 +21,9 @@ class Pit
     private $profile = 'default.yaml';
 
     /**
-     * Pit
-     *
+     * constructor
      */
-    public function Pit()
+    public function __construct()
     {
         if (strpos($this->directory, '~') === 0) {
             $this->directory = str_replace('~', getenv('HOME'), $this->directory);
@@ -34,12 +32,12 @@ class Pit
         if (!is_dir($this->directory)) {
             mkdir($this->directory);
         }
-        
+
         if (!is_file($this->directory . $this->config)) {
             touch($this->directory . $this->config);
             chmod($this->directory . $this->config, 0600);
         }
-        
+
         if (!is_file($this->directory . $this->profile)) {
             touch($this->directory . $this->profile);
             chmod($this->directory . $this->profile, 0600);
@@ -47,8 +45,10 @@ class Pit
     }
 
     /**
-     * set
-     *
+     * 設定を保存
+     * @param string $name
+     * @param array $options
+     * @return mixed
      */
     public function set($name, $options = array())
     {
@@ -88,14 +88,16 @@ class Pit
         $config = $this->load();
         $config[$name] = $result;
 
-        file_put_contents($this->directory . $this->profile, Spyc::YAMLDump($config));
+        file_put_contents($this->directory . $this->profile, Yaml::dump($config));
 
         return $config[$name];
     }
 
     /**
-     * get
-     *
+     * 取得
+     * @param string $name
+     * @param array $options
+     * @return array
      */
     public function get($name, $options = array())
     {
@@ -123,41 +125,37 @@ class Pit
         }
     }
 
+    /**
+     * switch profile
+     * @param string $name
+     * @param array $options
+     */
     public function switchProfile($name, $options = array())
     {
         $this->profile = $name . '.yaml';
         $config = $this->config();
         $config['profile'] = $name;
 
-        file_put_contents($this->directory . $this->config, Spyc::YAMLDump($config));
+        file_put_contents($this->directory . $this->config, Yaml::dump($config));
     }
 
+    /**
+     * get current profile data
+     * @return array
+     */
     public function load()
     {
         $config = $this->config();
         $this->switchProfile($config['profile']);
-        $yaml = Spyc::YAMLLoad($this->directory . $this->profile);
-        unset($yaml[0]);
-        return $yaml;
+        return Yaml::parse($this->directory . $this->profile);
     }
 
+    /**
+     * get config
+     * @return array
+     */
     public function config()
     {
-        $yaml = Spyc::YAMLLoad($this->directory . $this->config);
-        unset($yaml[0]);
-        return $yaml;
+        return Yaml::parse($this->directory . $this->config);
     }
-
 }
-
-/*
-$pit = new Pit();
-$re = $pit->get('none', array('require' =>
-    array(
-        'mail' => 'your mail',
-        'pass' => 'your pass'
-    )
-));
-var_dump($re);
- */
-?>
