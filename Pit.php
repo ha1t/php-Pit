@@ -8,6 +8,10 @@
  * $ sudo pear install openpear/Spyc 
  */
 
+require_once './vendor/Symfony/Component/Yaml/Yaml.php';
+require_once './vendor/Symfony/Component/Yaml/Parser.php';
+require_once './vendor/Symfony/Component/Yaml/Inline.php';
+
 use Symfony\Component\Yaml\Yaml;
 
 //$array = Yaml::parse($file);
@@ -65,18 +69,11 @@ class Pit
 
             $tfilename = tempnam(sys_get_temp_dir(), 'pit');
 
-            $tfh = fopen($tfilename, 'w+');
-            fwrite($tfh, $yaml);
-            fclose($tfh);
+            $yaml = file_get_contents($tfilename) . $yaml; 
+            file_put_contents($tfilename, $yaml); 
 
             $ph = popen(getenv("EDITOR") . ' ' . $tfilename, 'w');
             pclose($ph);
-
-            $result = file_get_contents($tfilename);
-
-            if ($result == $config_data) {
-                //No Changes
-            }
 
             $result = Spyc::YAMLLoad($tfilename);
             unset($result[0]);
@@ -135,9 +132,11 @@ class Pit
     {
         $config = $this->config();
         $this->switchProfile($config['profile']);
-        $yaml = Spyc::YAMLLoad($this->directory . $this->profile);
-        unset($yaml[0]);
-        return $yaml;
+        $array = Yaml::parse($this->directory . $this->profile);
+        var_dump($array); 
+        exit;
+        unset($array[0]);
+        return $array;
     }
 
     public function config()
