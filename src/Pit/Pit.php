@@ -56,11 +56,10 @@ class Pit
             $result = $options['data'];
         } else {
             if (isset($options['config'])) {
-                $yaml = Spyc::YAMLDump($options['config']);
+                $yaml = Yaml::dump($options['config']);
             } else {
                 $config_data = $this->get($name);
-                var_dump($config_data);exit();
-                $yaml = Spyc::YAMLDump($config_data);
+                $yaml = Yaml::dump($config_data);
             }
 
             $tfilename = tempnam(sys_get_temp_dir(), 'pit');
@@ -74,13 +73,12 @@ class Pit
 
             $result = file_get_contents($tfilename);
 
-            if ($result == $config_data) {
+            if ($result == $yaml) {
                 //No Changes
             }
 
             //yaml 2 array
-            $result = Spyc::YAMLLoad($tfilename);
-            unset($result[0]);
+            $result = Yaml::parse($result);
             unlink($tfilename);
         }
 

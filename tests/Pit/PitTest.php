@@ -38,4 +38,25 @@ class PitTest extends \PHPUnit_Framework_TestCase
         $config = $pit->get('example.com');
         $this->assertInternalType('array', $config);
     }
+
+    public function testSetWithConfigOption()
+    {
+        $pit = new Pit();
+
+        $options = array(
+            'config' => array(
+                'pass' => 'word',
+            ),
+        );
+        $config = $pit->set('example.com', $options);
+        $this->assertInternalType('array', $config);
+    }
+
+    public function testSetWithNoOption()
+    {
+        $pit = new Pit();
+
+        $config = $pit->set('example.com');
+        $this->assertInternalType('array', $config);
+    }
 }
